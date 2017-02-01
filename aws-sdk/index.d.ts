@@ -2604,3 +2604,37 @@ export module sts {
         TokenCode: string;
     }
 }
+
+export class Firehose {
+    constructor(options?: any);
+    endpoint: Endpoint;
+
+    putRecord(params: Firehose.PutRecordParams, callback: (error: Error, data: Firehose.PutRecordResult) => void): void;
+    putRecordBatch(params: Firehose.PutRecordBatchParams, callback: (error: Error, data: Firehose.PutRecordBatchResult) => void): void;
+}
+
+export module Firehose {
+    export interface PutRecordParams {
+        DeliveryStreamName: string;
+        Record: Record;
+    }
+    export interface PutRecordResult {
+        RecordId: string;
+    }
+    export interface PutRecordBatchParams {
+        DeliveryStreamName: string;
+        Records: Array<Record>;
+    }
+    export interface PutRecordBatchResult {
+        FailedPutCount: number;
+        RequestResponses: Array<RequestResponse>;
+    }
+    export interface Record {
+        Data: Buffer | string | Blob;
+    }
+    export interface RequestResponse {
+        RecordId: string;
+        ErrorCode: string;
+        ErrorMessage: string;
+    }
+}
